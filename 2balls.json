@@ -1,0 +1,68 @@
+{
+  "objects": [
+    {
+      "center": {
+        "x": 0,
+        "y": 10000.5,
+        "z": 1.0
+      },
+      "radius": 10000.0,
+      "material": {
+		"type": "chequered",
+        "color": "#420500",
+        "color1": "#E6B87D",
+        "ambient": 0.2,
+        "reflection": 0.2
+      }
+    },
+    {
+      "center": {
+        "x": 0.75,
+        "y": -0.1,
+        "z": 2.25
+      },
+      "radius": 0.6,
+      "material": {
+		"type": "material",
+        "color": "#0000FF"
+      }
+    },
+    {
+      "center": {
+        "x": -0.75,
+        "y": -0.1,
+        "z": 1.0
+      },
+      "radius": 0.6,
+      "material": {
+		"type": "material",
+        "color": "#803980"
+      }
+    }
+  ],
+  "lights": [
+    {
+      "position": {
+        "x": 1.5,
+        "y": -0.5,
+        "z": -10.0
+      },
+      "color": "#FFFFFF"
+    },
+    {
+      "position": {
+        "x": -0.5,
+        "y": -10.5,
+        "z": 0
+      },
+      "color": "#E6E6E6"
+    }
+  ],
+  "width": 1920,
+  "height": 1080,
+  "camera": {
+    "x": 0,
+    "y": -0.35,
+    "z": -1
+  }
+}
