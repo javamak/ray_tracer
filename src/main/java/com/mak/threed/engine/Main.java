@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Main {
     public static void main(String[] args) throws IOException {
         long start = System.currentTimeMillis();
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
         Scene scene = SceneLoader.loadScene("2balls.json");
         RenderEngine engine = new RenderEngine();
         Image image = engine.render(scene);
