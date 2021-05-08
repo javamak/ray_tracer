@@ -36,8 +36,16 @@ public class Vector {
         return div(magnitude());
     }
 
-    public float dot_product(Vector oth){
+    public float dotProduct(Vector oth){
         return this.x*oth.x + this.y*oth.y + this.z*oth.z;
+    }
+
+    public Vector crossProduct(Vector oth) {
+        Vector v = new Vector();
+        v.x = this.y*oth.z - this.z*oth.y;
+        v.y = this.z*oth.x - this.x*oth.z;
+        v.z = this.x*oth.y - this.y*oth.x;
+        return v;
     }
 
     @Override

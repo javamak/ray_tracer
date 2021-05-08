@@ -1,5 +1,6 @@
 package com.mak.threed.engine.engine;
 
+import com.mak.threed.engine.primitives.ThreeDObject;
 import com.mak.threed.engine.entities.*;
 
 public class RenderEngine {
@@ -26,14 +27,14 @@ public class RenderEngine {
             for(int i=0; i<width; i++) {
                 float x = x0 + i * xstep;
                 Ray ray = new Ray(camera, new Point(x, y, 0.0f).sub(camera));
-                image.setPixel(i, j, this.ray_trace(ray, scene, 0));
+                image.setPixel(i, j, this.rayTrace(ray, scene, 0));
             }
         }
 
         return image;
     }
 
-    private Color ray_trace(Ray ray, Scene scene, int depth) {
+    private Color rayTrace(Ray ray, Scene scene, int depth) {
         Color color = new Color(0, 0, 0);
         //find the nearest object hit by the ray in the scene
         Hit hit = this.find_nearest(ray, scene);
@@ -46,18 +47,18 @@ public class RenderEngine {
 
         if(depth<MAX_DEPTH) {
             Vector newRayPos = hitPos.add(hitNormal.mul(MIN_DISPLACE));
-            Vector newRayDir = ray.direction.sub(hitNormal.mul(2 * ray.direction.dot_product(hitNormal)));
+            Vector newRayDir = ray.direction.sub(hitNormal.mul(2 * ray.direction.dotProduct(hitNormal)));
             Ray newRay = new Ray(newRayPos, newRayDir);
             //Attenuate the reflected ray found by reflection coefficient
-            color = color.add(this.ray_trace(newRay, scene, depth+1).mul(hit.object.material.reflection));
+            color = color.add(this.rayTrace(newRay, scene, depth+1).mul(hit.object.getMaterial().reflection));
         }
         return color;
     }
 
     private Hit find_nearest(Ray ray, Scene scene) {
-        Sphere objHit = null;
+        ThreeDObject objHit = null;
         float distMin = 0;
-        for(Sphere obj : scene.objects) {
+        for(ThreeDObject obj : scene.objects) {
             Float dist = obj.intersects(ray);
             if(dist != null && (objHit == null || dist<distMin)){
                 distMin = dist;
@@ -67,8 +68,8 @@ public class RenderEngine {
         return new Hit(distMin, objHit);
     }
 
-    private Color colorAt(Sphere object, Vector hitPos, Vector hitNormal, Scene scene) {
-        Material material = object.material;
+    private Color colorAt(ThreeDObject object, Vector hitPos, Vector hitNormal, Scene scene) {
+        Material material = object.getMaterial();
         Color objColor = material.colorAt(hitPos);
         Vector toCam = scene.camera.sub(hitPos);
         int specular_k = 50;
@@ -76,10 +77,10 @@ public class RenderEngine {
         for(Light light : scene.lights) {
             Ray toLight = new Ray(hitPos, light.position.sub(hitPos));
             //diffuse shading (Lambert)
-            color = color.add(objColor.mul(material.diffuse).mul(Math.max(hitNormal.dot_product(toLight.direction), 0)));
+            color = color.add(objColor.mul(material.diffuse).mul(Math.max(hitNormal.dotProduct(toLight.direction), 0)));
             //specualar shadding (Blinn-Phong)
             Vector halfVector = toLight.direction.add(toCam).normalize();
-            color = color.add(light.color.mul(material.specular).mul((float) Math.pow(Math.max(hitNormal.dot_product(halfVector), 0), specular_k)));
+            color = color.add(light.color.mul(material.specular).mul((float) Math.pow(Math.max(hitNormal.dotProduct(halfVector), 0), specular_k)));
         }
 
         return color;
@@ -87,9 +88,9 @@ public class RenderEngine {
 
     private class Hit {
         Float distance;
-        Sphere object;
+        ThreeDObject object;
 
-        public Hit(Float distance, Sphere object) {
+        public Hit(Float distance, ThreeDObject object) {
             this.distance = distance;
             this.object = object;
         }

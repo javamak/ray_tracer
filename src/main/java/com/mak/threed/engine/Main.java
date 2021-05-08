@@ -7,7 +7,7 @@ import com.mak.threed.engine.entities.Scene;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mak.threed.engine.util.SceneLoader;
 
 public class Main {
     public static void main(String[] args) throws IOException {
