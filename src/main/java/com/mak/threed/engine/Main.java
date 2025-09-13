@@ -16,6 +16,6 @@ public class Main {
         RenderEngine engine = new RenderEngine();
         Image image = engine.render(scene);
         image.writePPM(new FileWriter("one.ppm"));
-        System.out.println((System.currentTimeMillis() - start) / 1000F +" seconds.");
+        System.out.println((System.currentTimeMillis() - start));
     }
 }
