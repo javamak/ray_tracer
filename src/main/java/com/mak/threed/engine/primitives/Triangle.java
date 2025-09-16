@@ -14,29 +14,22 @@ public class Triangle implements ThreeDObject {
     @Override
     public Float intersects(Ray ray) {
 
-        Vector edge1 = new Vector();
-        Vector edge2 = new Vector();
-        Vector h = new Vector();
-        Vector s = new Vector();
-        Vector q = new Vector();
-
-        double a, f, u, v;
-        edge1 = p1.sub(p0);
-        edge2 = p2.sub(p0);
-        h = ray.direction.crossProduct(edge2);
-        a = edge1.dotProduct(h);
+        Vector edge1 = p1.sub(p0);
+        Vector edge2 = p2.sub(p0);
+        Vector h = ray.direction.crossProduct(edge2);
+        double a = edge1.dotProduct(h);
         if (a > -EPSILON && a < EPSILON) {
             return null;    // This ray is parallel to this triangle.
         }
 
-        f = 1.0 / a;
-        s = ray.origin.sub(p0);
-        u = f * (s.dotProduct(h));
+        double f = 1.0 / a;
+        Vector s = ray.origin.sub(p0);
+        double u = f * s.dotProduct(h);
         if (u < 0.0 || u > 1.0) {
             return null;
         }
-        q = s.crossProduct(edge1);
-        v = f * ray.direction.dotProduct(q);
+        Vector q = s.crossProduct(edge1);
+        double v = f * ray.direction.dotProduct(q);
         if (v < 0.0 || u + v > 1.0) {
             return null;
         }

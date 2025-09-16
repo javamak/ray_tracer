@@ -12,6 +12,10 @@ public class Vector {
         this.z = z;
     }
 
+    public static Vector origin() {
+        return new Vector(0, 0, 0);
+    }
+
     public Vector add(Vector oth){
         return new Vector(this.x + oth.x, this.y + oth.y, this.z + oth.z);
     }
@@ -61,5 +65,14 @@ public class Vector {
     @Override
     public int hashCode() {
         return Objects.hash(x, y, z);
+    }
+
+    @Override
+    public String toString() {
+        return "Vector{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
     }
 }

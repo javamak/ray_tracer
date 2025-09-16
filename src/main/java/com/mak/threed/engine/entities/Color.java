@@ -21,10 +21,6 @@ public class Color {
         return new Color(this.r + oth.r, this.g + oth.g, this.b + oth.b);
     }
 
-    public Color sub(Color oth) {
-        return new Color(this.r - oth.r, this.g - oth.g, this.b - oth.b);
-    }
-
     public Color mul(float sclar) {
         return new Color(this.r * sclar, this.g * sclar, this.b * sclar);
     }
