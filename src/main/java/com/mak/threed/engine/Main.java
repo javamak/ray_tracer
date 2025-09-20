@@ -11,10 +11,13 @@ import com.mak.threed.engine.util.SceneLoader;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        long start = System.currentTimeMillis();
+        var start = System.currentTimeMillis();
         Scene scene = SceneLoader.loadScene("2balls.json");
-        RenderEngine engine = new RenderEngine();
-        Image image = engine.render(scene);
+
+        var renderStartTime = System.currentTimeMillis();
+        var engine = new RenderEngine();
+        var image = engine.render(scene);
+        System.out.printf("Render completed in %s ms%n", System.currentTimeMillis() - renderStartTime);
         image.writePPM(new FileWriter("one.ppm"));
         System.out.println((System.currentTimeMillis() - start));
     }

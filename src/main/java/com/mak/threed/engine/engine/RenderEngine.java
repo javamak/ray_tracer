@@ -76,7 +76,7 @@ public class RenderEngine {
         return new Hit(distMin, objHit);
     }
 
-    private Color colorAt(ThreeDObject object, Vector hitPos, Vector hitNormal, Scene scene) {
+    private static Color colorAt(ThreeDObject object, Vector hitPos, Vector hitNormal, Scene scene) {
         Material material = object.getMaterial();
         Color objColor = material.colorAt(hitPos);
         Vector toCam = scene.camera.sub(hitPos);
