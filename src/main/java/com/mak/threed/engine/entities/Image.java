@@ -13,11 +13,15 @@ public class Image {
         pixels = new Color[height][width];
     }
 
+    public static int toByte(float x) {
+        return Math.round(Math.max(Math.min(x * 255, 255), 0));
+    }
+
     public void setPixel(int x, int y, Color color) {
         pixels[y][x] = color;
     }
 
-    public void writePPM(Writer writer) throws IOException{
+    public void writePPM(Writer writer) throws IOException {
         writePPMHeader(writer, this.width, this.height);
         writeRawPPM(writer);
     }
@@ -26,17 +30,13 @@ public class Image {
         writer.write(String.format("P3 %d %d\n255\n", width, height));
     }
 
-    public void writeRawPPM(Writer writer) throws IOException{
-        for (Color[] row:pixels){
-            for(Color color : row) {
+    public void writeRawPPM(Writer writer) throws IOException {
+        for (Color[] row : pixels) {
+            for (Color color : row) {
                 writer.write(String.format("%d %d %d ", toByte(color.r), toByte(color.g), toByte(color.b)));
             }
             writer.write("\n");
         }
-    }
-
-    private static int toByte(float x){
-        return Math.round(Math.max(Math.min(x*255, 255), 0));
     }
 
 }

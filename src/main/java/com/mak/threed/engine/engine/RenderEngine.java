@@ -15,6 +15,24 @@ public class RenderEngine {
     private static float MIN_DISPLACE = 0.001f;
     private static int MAX_DEPTH = 5;
 
+    private static Color colorAt(ThreeDObject object, Vector hitPos, Vector hitNormal, Scene scene) {
+        Material material = object.getMaterial();
+        Color objColor = material.colorAt(hitPos);
+        Vector toCam = scene.camera.sub(hitPos);
+        int specular_k = 50;
+        Color color = Color.fromHex(("#000000")).mul(material.ambient);
+        for (Light light : scene.lights) {
+            Ray toLight = new Ray(hitPos, light.position.sub(hitPos));
+            //diffuse shading (Lambert)
+            color = color.add(objColor.mul(material.diffuse).mul(Math.max(hitNormal.dotProduct(toLight.direction), 0)));
+            //specualar shadding (Blinn-Phong)
+            Vector halfVector = toLight.direction.add(toCam).normalize();
+            color = color.add(light.color.mul(material.specular).mul((float) Math.pow(Math.max(hitNormal.dotProduct(halfVector), 0), specular_k)));
+        }
+
+        return color;
+    }
+
     public Image render(Scene scene) {
         int width = scene.width;
         int height = scene.height;
@@ -45,13 +63,12 @@ public class RenderEngine {
     private Color rayTrace(Ray ray, Scene scene, int depth) {
         Color color = new Color(0, 0, 0);
         //find the nearest object hit by the ray in the scene
-        Hit hit = this.find_nearest(ray, scene);
+        Hit hit = this.findNearest(ray, scene);
         if (hit.object == null)
             return color;
 
         Vector hitPos = ray.origin.add(ray.direction.mul(hit.distance));
         Vector hitNormal = hit.object.normal(hitPos);
-        color = color.add(this.colorAt(hit.object, hitPos, hitNormal, scene));
 
         if (depth < MAX_DEPTH) {
             Vector newRayPos = hitPos.add(hitNormal.mul(MIN_DISPLACE));
@@ -59,11 +76,14 @@ public class RenderEngine {
             Ray newRay = new Ray(newRayPos, newRayDir);
             //Attenuate the reflected ray found by reflection coefficient
             color = color.add(this.rayTrace(newRay, scene, depth + 1).mul(hit.object.getMaterial().reflection));
+        } else {
+            color = color.add(colorAt(hit.object, hitPos, hitNormal, scene));
         }
+
         return color;
     }
 
-    private Hit find_nearest(Ray ray, Scene scene) {
+    private Hit findNearest(Ray ray, Scene scene) {
         ThreeDObject objHit = null;
         float distMin = 0;
         for (ThreeDObject obj : scene.objects) {
@@ -74,24 +94,6 @@ public class RenderEngine {
             }
         }
         return new Hit(distMin, objHit);
-    }
-
-    private static Color colorAt(ThreeDObject object, Vector hitPos, Vector hitNormal, Scene scene) {
-        Material material = object.getMaterial();
-        Color objColor = material.colorAt(hitPos);
-        Vector toCam = scene.camera.sub(hitPos);
-        int specular_k = 50;
-        Color color = Color.fromHex(("#000000")).mul(material.ambient);
-        for (Light light : scene.lights) {
-            Ray toLight = new Ray(hitPos, light.position.sub(hitPos));
-            //diffuse shading (Lambert)
-            color = color.add(objColor.mul(material.diffuse).mul(Math.max(hitNormal.dotProduct(toLight.direction), 0)));
-            //specualar shadding (Blinn-Phong)
-            Vector halfVector = toLight.direction.add(toCam).normalize();
-            color = color.add(light.color.mul(material.specular).mul((float) Math.pow(Math.max(hitNormal.dotProduct(halfVector), 0), specular_k)));
-        }
-
-        return color;
     }
 
     private class Hit {

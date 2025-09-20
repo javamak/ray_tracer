@@ -16,6 +16,8 @@ import com.mak.threed.engine.entities.Vector;
 })
 public interface ThreeDObject {
     Float intersects(Ray ray);
+
     Vector normal(Vector surfacePoint);
+
     Material getMaterial();
 }

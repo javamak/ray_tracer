@@ -17,12 +17,30 @@ public class Color {
         this.b = b;
     }
 
+    @JsonCreator
+    public static Color fromHex(String hex) {
+        float x = Integer.parseInt(hex.substring(1, 3), 16) / 255.0f;
+        float y = Integer.parseInt(hex.substring(3, 5), 16) / 255.0f;
+        float z = Integer.parseInt(hex.substring(5, 7), 16) / 255.0f;
+        return new Color(x, y, z);
+    }
+
     public Color add(Color oth) {
         return new Color(this.r + oth.r, this.g + oth.g, this.b + oth.b);
     }
 
     public Color mul(float sclar) {
         return new Color(this.r * sclar, this.g * sclar, this.b * sclar);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Color{" +
+                "r=" + r +
+                ", g=" + g +
+                ", b=" + b +
+                '}';
     }
 
     @Override
@@ -38,13 +56,5 @@ public class Color {
     @Override
     public int hashCode() {
         return Objects.hash(r, g, b);
-    }
-
-    @JsonCreator
-    public static Color fromHex(String hex) {
-        float x = Integer.parseInt(hex.substring(1, 3), 16) / 255.0f;
-        float y = Integer.parseInt(hex.substring(3, 5), 16) / 255.0f;
-        float z = Integer.parseInt(hex.substring(5, 7), 16) / 255.0f;
-        return new Color(x, y, z);
     }
 }

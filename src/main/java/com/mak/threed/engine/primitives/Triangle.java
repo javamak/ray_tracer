@@ -7,9 +7,9 @@ import com.mak.threed.engine.entities.Vector;
 
 public class Triangle implements ThreeDObject {
 
+    private static final double EPSILON = 0.0000001;
     public Point p0, p1, p2;
     public Material material;
-    private static final double EPSILON = 0.0000001;
 
     @Override
     public Float intersects(Ray ray) {

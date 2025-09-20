@@ -11,14 +11,14 @@ public class Scene {
     public List<Light> lights;
     public int width, height;
 
-    public Scene() {
-    }
-
-    public Scene(Camera camera, List<ThreeDObject> objects, List<Light> lights, int width, int height) {
-        this.camera = camera;
-        this.objects = objects;
-        this.lights = lights;
-        this.width = width;
-        this.height = height;
+    @Override
+    public String toString() {
+        return "Scene{" +
+                "camera=" + camera +
+                ", objects=" + objects +
+                ", lights=" + lights +
+                ", width=" + width +
+                ", height=" + height +
+                '}';
     }
 }

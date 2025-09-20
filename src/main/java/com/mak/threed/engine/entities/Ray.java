@@ -8,4 +8,12 @@ public class Ray {
         this.origin = origin;
         this.direction = direction.normalize();
     }
+
+    @Override
+    public String toString() {
+        return "Ray{" +
+                "origin=" + origin +
+                ", direction=" + direction +
+                '}';
+    }
 }
