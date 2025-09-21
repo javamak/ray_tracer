@@ -70,14 +70,14 @@ public class RenderEngine {
         Vector hitPos = ray.origin.add(ray.direction.mul(hit.distance));
         Vector hitNormal = hit.object.normal(hitPos);
 
+        color = color.add(colorAt(hit.object, hitPos, hitNormal, scene));
+
         if (depth < MAX_DEPTH) {
             Vector newRayPos = hitPos.add(hitNormal.mul(MIN_DISPLACE));
             Vector newRayDir = ray.direction.sub(hitNormal.mul(2 * ray.direction.dotProduct(hitNormal)));
             Ray newRay = new Ray(newRayPos, newRayDir);
             //Attenuate the reflected ray found by reflection coefficient
             color = color.add(this.rayTrace(newRay, scene, depth + 1).mul(hit.object.getMaterial().reflection));
-        } else {
-            color = color.add(colorAt(hit.object, hitPos, hitNormal, scene));
         }
 
         return color;
