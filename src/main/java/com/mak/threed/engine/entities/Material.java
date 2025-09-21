@@ -32,4 +32,15 @@ public class Material {
     public Color colorAt(Vector position) {
         return this.color;
     }
+
+    @Override
+    public String toString() {
+        return "Material{" +
+                "color=" + color +
+                ", ambient=" + ambient +
+                ", diffuse=" + diffuse +
+                ", specular=" + specular +
+                ", reflection=" + reflection +
+                '}';
+    }
 }

@@ -11,7 +11,6 @@ public class SceneLoader {
     public static Scene loadScene(String fileName) throws IOException {
         byte[] data = Files.readAllBytes(Paths.get(fileName));
         ObjectMapper objectMapper = new ObjectMapper();
-        Scene scene = objectMapper.readValue(data, Scene.class);
-        return scene;
+        return objectMapper.readValue(data, Scene.class);
     }
 }

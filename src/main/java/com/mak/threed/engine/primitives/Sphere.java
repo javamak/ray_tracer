@@ -37,6 +37,7 @@ public class Sphere implements ThreeDObject {
         return "Sphere{" +
                 "center=" + center +
                 ", radius=" + radius +
+                ", material=" + material +
                 '}';
     }
 

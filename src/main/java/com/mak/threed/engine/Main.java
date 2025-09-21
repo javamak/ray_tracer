@@ -10,9 +10,8 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        var start = System.currentTimeMillis();
         Scene scene = SceneLoader.loadScene("2balls.json");
-
+        var start = System.currentTimeMillis();
         var renderStartTime = System.currentTimeMillis();
         var engine = new RenderEngine();
         var image = engine.render(scene);
@@ -22,8 +21,8 @@ public class Main {
             image.writePPM(writer);
         }
         var end = System.currentTimeMillis();
-        System.out.printf("Overall time in %s ms%n", end - start);
-        System.out.printf("Render completed in %s ms%n", renderTime);
-        System.out.printf("File write completed in %s ms%n", end -  fileOpStart);
+        System.out.printf("Overall time; %sms%n", end - start);
+        System.out.printf("Render completed in %sms%n", renderTime);
+        System.out.printf("File write completed in %sms%n", end -  fileOpStart);
     }
 }

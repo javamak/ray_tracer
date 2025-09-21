@@ -40,4 +40,12 @@ class VectorTest {
         var v1 = new Vector(10.1f, 10.1f, 10.1f);
         assertEquals(new Vector(-1.0100021f, 3.0300064f, -2.0200043f), v.crossProduct(v1));
     }
+
+    @Test
+    void testVectorSub() {
+        var pos = new Vector(1.5f, -0.5f, -10f);
+        var hit = new Vector(1.3911865f, 0.50031936f, 0.69772184f);
+        System.out.println(pos.sub(hit));
+
+    }
 }

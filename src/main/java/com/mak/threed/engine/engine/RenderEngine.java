@@ -60,7 +60,7 @@ public class RenderEngine {
         return image;
     }
 
-    private Color rayTrace(Ray ray, Scene scene, int depth) {
+    Color rayTrace(Ray ray, Scene scene, int depth) {
         Color color = new Color(0, 0, 0);
         //find the nearest object hit by the ray in the scene
         Hit hit = this.findNearest(ray, scene);

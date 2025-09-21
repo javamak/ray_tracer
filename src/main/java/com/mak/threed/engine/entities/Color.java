@@ -29,8 +29,8 @@ public class Color {
         return new Color(this.r + oth.r, this.g + oth.g, this.b + oth.b);
     }
 
-    public Color mul(float sclar) {
-        return new Color(this.r * sclar, this.g * sclar, this.b * sclar);
+    public Color mul(float scalar) {
+        return new Color(this.r * scalar, this.g * scalar, this.b * scalar);
     }
 
 
