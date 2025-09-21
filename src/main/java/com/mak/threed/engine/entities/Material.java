@@ -21,14 +21,6 @@ public class Material {
     public Material() {
     }
 
-    public Material(Color color, float ambient, float diffuse, float specular, float reflection) {
-        this.color = color;
-        this.ambient = ambient;
-        this.diffuse = diffuse;
-        this.specular = specular;
-        this.reflection = reflection;
-    }
-
     public Color colorAt(Vector position) {
         return this.color;
     }

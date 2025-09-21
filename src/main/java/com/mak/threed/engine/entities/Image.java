@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.io.Writer;
 
 public class Image {
-    public int width, height;
-    private Color[][] pixels;
+    public final int width;
+    public final int  height;
+    private final Color[][] pixels;
 
     public Image(int width, int height) {
         this.width = width;

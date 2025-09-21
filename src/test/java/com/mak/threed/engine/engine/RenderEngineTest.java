@@ -2,14 +2,13 @@ package com.mak.threed.engine.engine;
 
 import com.mak.threed.engine.entities.Color;
 import com.mak.threed.engine.entities.Ray;
-import com.mak.threed.engine.entities.Scene;
 import com.mak.threed.engine.entities.Vector;
 import com.mak.threed.engine.util.SceneLoader;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RenderEngineTest {
 

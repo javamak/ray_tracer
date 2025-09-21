@@ -12,8 +12,8 @@ import com.mak.threed.engine.entities.Vector;
 import com.mak.threed.engine.primitives.ThreeDObject;
 
 public class RenderEngine {
-    private static float MIN_DISPLACE = 0.001f;
-    private static int MAX_DEPTH = 5;
+    private final static float MIN_DISPLACE = 0.001f;
+    private final static int MAX_DEPTH = 5;
 
     private static Color colorAt(ThreeDObject object, Vector hitPos, Vector hitNormal, Scene scene) {
         Material material = object.getMaterial();
@@ -96,7 +96,7 @@ public class RenderEngine {
         return new Hit(distMin, objHit);
     }
 
-    private class Hit {
+    private static class Hit {
         Float distance;
         ThreeDObject object;
 

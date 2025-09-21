@@ -1,6 +1,7 @@
 package com.mak.threed.engine.entities;
 
 public class Point extends Vector {
+
     public Point() {
     }
 
